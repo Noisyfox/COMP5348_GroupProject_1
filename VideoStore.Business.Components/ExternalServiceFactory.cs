@@ -1,11 +1,12 @@
 ﻿using Bank.Services.Interfaces;
 using DeliveryCo.Services.Interfaces;
-using EmailService.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Messaging;
 using System.ServiceModel;
 using System.Text;
+using VideoStore.Business.Components.EmailServiceEx;
 
 namespace VideoStore.Business.Components
 {
@@ -25,10 +26,7 @@ namespace VideoStore.Business.Components
 
         public IEmailService EmailService
         {
-            get
-            {
-                return GetTcpService<IEmailService>("net.tcp://localhost:9040/EmailService");
-            }
+            get { return new EmailServiceClient(); }
         }
 
         public ITransferService TransferService

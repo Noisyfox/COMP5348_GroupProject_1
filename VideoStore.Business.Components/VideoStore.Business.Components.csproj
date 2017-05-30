@@ -41,6 +41,7 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Messaging" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
@@ -53,6 +54,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CatalogueProvider.cs" />
+    <Compile Include="Connected Services\EmailServiceEx\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="DeliveryNotificationProvider.cs" />
     <Compile Include="EmailProvider.cs" />
     <Compile Include="ExternalServiceFactory.cs" />
@@ -83,10 +89,6 @@
       <Project>{3d1f0292-0cd7-4140-b463-d7edb3122627}</Project>
       <Name>EmailService.MessageTypes</Name>
     </ProjectReference>
-    <ProjectReference Include="..\EmailService.Services\EmailService.Services.Interfaces\EmailService.Services.Interfaces.csproj">
-      <Project>{361095e5-34fd-4987-bce7-090d4e317918}</Project>
-      <Name>EmailService.Services.Interfaces</Name>
-    </ProjectReference>
     <ProjectReference Include="..\VideoStore.Business.Components.Interfaces\VideoStore.Business.Components.Interfaces.csproj">
       <Project>{2851CEF3-00F9-4AFB-9306-0D6E0BDD45E3}</Project>
       <Name>VideoStore.Business.Components.Interfaces</Name>
@@ -97,10 +99,35 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
+    <None Include="app.config" />
+    <None Include="Connected Services\EmailServiceEx\EmailService.MessageTypes.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EmailServiceEx\service.wsdl" />
+    <None Include="Connected Services\EmailServiceEx\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\EmailServiceEx\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\EmailServiceEx\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EmailServiceEx\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EmailServiceEx\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\EmailServiceEx\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
