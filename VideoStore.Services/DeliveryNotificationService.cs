@@ -22,6 +22,11 @@ namespace VideoStore.Services
             Provider.NotifyDeliveryCompletion(pDeliveryId, GetDeliveryStatusFromDeliveryInfoStatus(status));
         }
 
+        public void NotifyDeliverySubmitted(string orderNnmber, Guid pDeliveryId, DeliveryInfoStatus status, String errorMsg)
+        {
+            Provider.NotifyDeliverySubmitted(orderNnmber, pDeliveryId, GetDeliveryStatusFromDeliveryInfoStatus(status), errorMsg);
+        }
+
         private DeliveryStatus GetDeliveryStatusFromDeliveryInfoStatus(DeliveryInfoStatus status)
         {
             if (status == DeliveryInfoStatus.Delivered)

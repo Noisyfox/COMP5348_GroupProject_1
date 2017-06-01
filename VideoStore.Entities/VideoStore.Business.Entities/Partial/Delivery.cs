@@ -5,7 +5,7 @@ using System.Text;
 
 namespace VideoStore.Business.Entities
 {
-    public enum DeliveryStatus { Submitted, Delivered, Failed }
+    public enum DeliveryStatus { Submitting, Submitted, Delivered, Failed }
 
     public partial class Delivery
     {

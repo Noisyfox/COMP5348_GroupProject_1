@@ -53,7 +53,6 @@ namespace VideoStore.Business.Components
                     }
                 }
             }
-            SendOrderPlacedConfirmation(pOrder);
         }
 
         private void MarkAppropriateUnchangedAssociations(Order pOrder)
@@ -100,9 +99,10 @@ namespace VideoStore.Business.Components
 
         private void PlaceDeliveryForOrder(Order pOrder)
         {
-            Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Video Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
+            Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitting, SourceAddress = "Video Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
-            Guid lDeliveryIdentifier = ExternalServiceFactory.Instance.DeliveryService.SubmitDelivery(new DeliveryInfo()
+            //Guid lDeliveryIdentifier = 
+            ExternalServiceFactory.Instance.DeliveryService.SubmitDelivery(new DeliveryInfo()
             { 
                 OrderNumber = lDelivery.Order.OrderNumber.ToString(),  
                 SourceAddress = lDelivery.SourceAddress,
@@ -110,7 +110,7 @@ namespace VideoStore.Business.Components
                 DeliveryNotificationAddress = ConfigurationManager.AppSettings["emailNotifyAddress"]
             });
 
-            lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
+            //lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
             pOrder.Delivery = lDelivery;
             
         }

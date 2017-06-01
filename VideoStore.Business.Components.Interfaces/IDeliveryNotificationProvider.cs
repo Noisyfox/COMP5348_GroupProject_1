@@ -8,6 +8,7 @@ namespace VideoStore.Business.Components.Interfaces
 {
     public interface IDeliveryNotificationProvider
     {
+        void NotifyDeliverySubmitted(String orderNnmber, Guid pDeliveryId, DeliveryStatus status, String errorMsg);
 
         void NotifyDeliveryCompletion(Guid pDeliveryId, DeliveryStatus status);
     }

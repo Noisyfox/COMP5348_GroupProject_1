@@ -63,6 +63,10 @@
       <Project>{4EF559A7-8607-485F-8782-273B61B720A9}</Project>
       <Name>DeliveryCo.Business.Components.Interfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\DeliveryCo.Business\DeliveryCo.Business.Components\DeliveryCo.Business.Components.csproj">
+      <Project>{A1724846-6E4A-4B5D-B27C-66AA65266138}</Project>
+      <Name>DeliveryCo.Business.Components</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\DeliveryCo.Business\DeliveryCo.Business.Entities\DeliveryCo.Business.Entities.csproj">
       <Project>{378B43F5-B7BC-471A-87A9-B1656A6B1531}</Project>
       <Name>DeliveryCo.Business.Entities</Name>
