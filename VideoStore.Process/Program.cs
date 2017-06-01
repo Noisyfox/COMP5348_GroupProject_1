@@ -17,6 +17,7 @@ using System.Transactions;
 using System.ServiceModel.Description;
 using VideoStore.Business.Components.Interfaces;
 using VideoStore.WebClient.CustomAuth;
+using System.Messaging;
 
 namespace VideoStore.Process
 {
@@ -175,6 +176,8 @@ namespace VideoStore.Process
 
         private static void HostServices()
         {
+            EnsureQueueExists();
+
             List<ServiceHost> lHosts = new List<ServiceHost>();
             try
             {
@@ -204,6 +207,18 @@ namespace VideoStore.Process
         private static String GetAssemblyQualifiedServiceName(String pServiceName)
         {
             return String.Format("{0}, {1}", pServiceName, System.Configuration.ConfigurationManager.AppSettings["ServiceAssemblyName"].ToString());
+        }
+
+        private static void EnsureQueueExists()
+        {
+            var queues = ConfigurationManager.AppSettings.AllKeys.Where(n => n.EndsWith("QueueName")).Select(n=> ConfigurationManager.AppSettings[n]);
+
+            foreach(var queueName in queues)
+            {
+                // Create the transacted MSMQ queue if necessary.
+                if (!MessageQueue.Exists(queueName))
+                    MessageQueue.Create(queueName, true);
+            }
         }
     }
 }
