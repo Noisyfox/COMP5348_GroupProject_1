@@ -41,7 +41,7 @@ namespace VideoStore.Business.Components
         {
             get
             {
-                return GetTcpService<IDeliveryService>("net.tcp://localhost:9030/DeliveryService");
+                return GetMsmqService<IDeliveryService>("net.msmq://localhost/private/DeliveryServiceMessageQueueTransacted");
             }
         }
 
@@ -52,6 +52,14 @@ namespace VideoStore.Business.Components
             NetTcpBinding tcpBinding = new NetTcpBinding() { TransactionFlow = true };
             EndpointAddress address = new EndpointAddress(pAddress);
             return new ChannelFactory<T>(tcpBinding, pAddress).CreateChannel();
+        }
+
+        private T GetMsmqService<T>(String pAddress)
+        {
+            NetMsmqBinding msmqBinding = new NetMsmqBinding();
+            msmqBinding.Security.Mode = NetMsmqSecurityMode.None;
+            EndpointAddress address = new EndpointAddress(pAddress);
+            return new ChannelFactory<T>(msmqBinding, pAddress).CreateChannel();
         }
     }
 }

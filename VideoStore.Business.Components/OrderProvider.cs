@@ -7,6 +7,7 @@ using VideoStore.Business.Entities;
 using System.Transactions;
 using Microsoft.Practices.ServiceLocation;
 using DeliveryCo.MessageTypes;
+using System.Configuration;
 
 namespace VideoStore.Business.Components
 {
@@ -52,7 +53,6 @@ namespace VideoStore.Business.Components
                     }
                 }
             }
-            SendOrderPlacedConfirmation(pOrder);
         }
 
         private void MarkAppropriateUnchangedAssociations(Order pOrder)
@@ -99,17 +99,18 @@ namespace VideoStore.Business.Components
 
         private void PlaceDeliveryForOrder(Order pOrder)
         {
-            Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitted, SourceAddress = "Video Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
+            Delivery lDelivery = new Delivery() { DeliveryStatus = DeliveryStatus.Submitting, SourceAddress = "Video Store Address", DestinationAddress = pOrder.Customer.Address, Order = pOrder };
 
-            Guid lDeliveryIdentifier = ExternalServiceFactory.Instance.DeliveryService.SubmitDelivery(new DeliveryInfo()
+            //Guid lDeliveryIdentifier = 
+            ExternalServiceFactory.Instance.DeliveryService.SubmitDelivery(new DeliveryInfo()
             { 
                 OrderNumber = lDelivery.Order.OrderNumber.ToString(),  
                 SourceAddress = lDelivery.SourceAddress,
                 DestinationAddress = lDelivery.DestinationAddress,
-                DeliveryNotificationAddress = "net.tcp://localhost:9010/DeliveryNotificationService"
+                DeliveryNotificationAddress = ConfigurationManager.AppSettings["emailNotifyAddress"]
             });
 
-            lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
+            //lDelivery.ExternalDeliveryIdentifier = lDeliveryIdentifier;
             pOrder.Delivery = lDelivery;
             
         }
