@@ -11,6 +11,7 @@ using Microsoft.Practices.Unity.Configuration;
 using Microsoft.Practices.Unity.ServiceLocatorAdapter;
 using Microsoft.Practices.ServiceLocation;
 using System.Configuration;
+using System.Messaging;
 
 namespace Bank.Process
 {
@@ -19,12 +20,22 @@ namespace Bank.Process
         static void Main(string[] args)
         {
             ResolveDependencies();
+            EnsureQueueExists();
             CreateDummyEntities();
             HostServices();
 
         }
 
-        private static void HostServices()
+        private static void EnsureQueueExists()
+        {
+            string queueName = ConfigurationManager.AppSettings["queueName"];
+ 
+             // Create the transacted MSMQ queue if necessary.
+            if (!MessageQueue.Exists(queueName))
+                MessageQueue.Create(queueName, true);
+        }
+
+    private static void HostServices()
         {
             using (ServiceHost lHost = new ServiceHost(typeof(TransferService)))
             {

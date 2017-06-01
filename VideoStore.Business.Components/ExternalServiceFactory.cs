@@ -1,11 +1,11 @@
-﻿using Bank.Services.Interfaces;
-using DeliveryCo.Services.Interfaces;
+﻿using DeliveryCo.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
 using System.ServiceModel;
 using System.Text;
+using VideoStore.Business.Components.BankServiceReference;
 using VideoStore.Business.Components.EmailServiceEx;
 
 namespace VideoStore.Business.Components
@@ -33,7 +33,7 @@ namespace VideoStore.Business.Components
         {
             get
             {
-                return GetTcpService<ITransferService>("net.tcp://localhost:9020/TransferService");
+                return new TransferServiceClient();
             }
         }
 
