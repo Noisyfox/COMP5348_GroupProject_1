@@ -60,11 +60,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\DelieveryServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Connected Services\EmailServiceEx\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -118,16 +113,6 @@
     <None Include="Connected Services\BankServiceReference\service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\DelieveryServiceReference\DeliveryCo.MessageTypes.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DelieveryServiceReference\service.wsdl" />
-    <None Include="Connected Services\DelieveryServiceReference\service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\DelieveryServiceReference\service1.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Connected Services\EmailServiceEx\EmailService.MessageTypes.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -144,7 +129,6 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\BankServiceReference\" />
-    <WCFMetadataStorage Include="Connected Services\DelieveryServiceReference\" />
     <WCFMetadataStorage Include="Connected Services\EmailServiceEx\" />
   </ItemGroup>
   <ItemGroup>
@@ -167,18 +151,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\BankServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DelieveryServiceReference\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DelieveryServiceReference\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\DelieveryServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
