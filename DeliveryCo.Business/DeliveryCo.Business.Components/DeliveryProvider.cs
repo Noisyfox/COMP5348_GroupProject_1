@@ -34,7 +34,7 @@ namespace DeliveryCo.Business.Components
             }
             catch (Exception ex)
             {
-                using (TransactionScope lScope = new TransactionScope())
+                using (TransactionScope lScope = new TransactionScope(TransactionScopeOption.Suppress))
                 {
                     IDeliveryNotificationService lService = DeliveryNotificationServiceFactory.GetDeliveryNotificationService(pDeliveryInfo.DeliveryNotificationAddress);
                     lService.NotifyDeliverySubmitted(pDeliveryInfo.OrderNumber, pDeliveryInfo.DeliveryIdentifier, DeliveryInfoStatus.Failed, ex.ToString());

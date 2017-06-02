@@ -20,7 +20,7 @@ namespace DeliveryCo.Services
             }
         }
 
-        [OperationBehavior(TransactionScopeRequired = true)]
+//        [OperationBehavior(TransactionScopeRequired = true)]
         public void SubmitDelivery(DeliveryInfo pDeliveryInfo)
         {
             DeliveryProvider.SubmitDelivery(

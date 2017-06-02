@@ -48,7 +48,7 @@ namespace Bank.Business.Components
             }
             catch (Exception lException)
             {
-                using (TransactionScope lScope = new TransactionScope())
+                using (TransactionScope lScope = new TransactionScope(TransactionScopeOption.Suppress))
                 {
                     TransferNotificationServiceFactory.GetTransferNotificationService(pTransferNotificationAddress)
                         .NotifyTransferFailed(pTransferReference, lException.Message);
