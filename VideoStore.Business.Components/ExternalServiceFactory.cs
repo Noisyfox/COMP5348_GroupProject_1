@@ -5,7 +5,7 @@ using System.Linq;
 using System.Messaging;
 using System.ServiceModel;
 using System.Text;
-using VideoStore.Business.Components.BankServiceReference;
+using Bank.Services.Interfaces;
 using VideoStore.Business.Components.EmailServiceEx;
 
 namespace VideoStore.Business.Components
@@ -33,7 +33,7 @@ namespace VideoStore.Business.Components
         {
             get
             {
-                return new TransferServiceClient();
+                return GetMsmqService<ITransferService>("net.msmq://localhost/private/BankServiceMessageQueueTransacted");
             }
         }
 

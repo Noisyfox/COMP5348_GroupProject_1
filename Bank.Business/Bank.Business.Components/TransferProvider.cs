@@ -13,31 +13,47 @@ namespace Bank.Business.Components
     {
 
 
-        public void Transfer(double pAmount, int pFromAcctNumber, int pToAcctNumber)
+        public void Transfer(double pAmount, int pFromAcctNumber, int pToAcctNumber,
+            string pTransferNotificationAddress, string pTransferReference)
         {
-            using (TransactionScope lScope = new TransactionScope())
-            using (BankEntityModelContainer lContainer = new BankEntityModelContainer())
+            try
             {
-
-                try
+                using (TransactionScope lScope = new TransactionScope())
+                using (BankEntityModelContainer lContainer = new BankEntityModelContainer())
                 {
-                    Account lFromAcct = GetAccountFromNumber(pFromAcctNumber);
-                    Account lToAcct = GetAccountFromNumber(pToAcctNumber);
-                    lFromAcct.Withdraw(pAmount);
-                    lToAcct.Deposit(pAmount);
-                    lContainer.Attach(lFromAcct);
-                    lContainer.Attach(lToAcct);
-                    lContainer.ObjectStateManager.ChangeObjectState(lFromAcct, System.Data.EntityState.Modified);
-                    lContainer.ObjectStateManager.ChangeObjectState(lToAcct, System.Data.EntityState.Modified);
-                    lContainer.SaveChanges();
-                    lScope.Complete();
-  
+
+                    try
+                    {
+                        Account lFromAcct = GetAccountFromNumber(pFromAcctNumber);
+                        Account lToAcct = GetAccountFromNumber(pToAcctNumber);
+                        lFromAcct.Withdraw(pAmount);
+                        lToAcct.Deposit(pAmount);
+                        lContainer.Attach(lFromAcct);
+                        lContainer.Attach(lToAcct);
+                        lContainer.ObjectStateManager.ChangeObjectState(lFromAcct, System.Data.EntityState.Modified);
+                        lContainer.ObjectStateManager.ChangeObjectState(lToAcct, System.Data.EntityState.Modified);
+                        lContainer.SaveChanges();
+
+                        TransferNotificationServiceFactory.GetTransferNotificationService(pTransferNotificationAddress)
+                            .NotifyTransferSuccess(pTransferReference);
+
+                        lScope.Complete();
+                    }
+                    catch (Exception lException)
+                    {
+                        Console.WriteLine("Error occured while transferring money:  " + lException.Message);
+                        throw;
+                    }
                 }
-                catch (Exception lException)
+            }
+            catch (Exception lException)
+            {
+                using (TransactionScope lScope = new TransactionScope())
                 {
-                    Console.WriteLine("Error occured while transferring money:  " + lException.Message);
-                    throw;
+                    TransferNotificationServiceFactory.GetTransferNotificationService(pTransferNotificationAddress)
+                        .NotifyTransferFailed(pTransferReference, lException.Message);
 
+                    lScope.Complete();
                 }
             }
         }

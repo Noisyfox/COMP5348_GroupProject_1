@@ -119,7 +119,7 @@ namespace VideoStore.Business.Components
         {
             try
             {
-                ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveVideoStoreAccountNumber());
+                ExternalServiceFactory.Instance.TransferService.Transfer(pTotal, pCustomerAccountNumber, RetrieveVideoStoreAccountNumber(), "", "");
             }
             catch(Exception e)
             {
