@@ -140,7 +140,7 @@ namespace VideoStore.Business.Components
                 var orderNumber = Guid.Parse(pOrderNumber);
                 using (var lContainer = new VideoStoreEntityModelContainer())
                 {
-                    var order = lContainer.Orders.Include("Customer").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
+                    var order = lContainer.Orders.Include("Customer").Include("OrderItems.Media.Stocks").FirstOrDefault(pOrder => pOrder.OrderNumber == orderNumber);
                     try
                     {
                         if (order != null)
